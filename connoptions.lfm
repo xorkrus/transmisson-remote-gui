@@ -340,8 +340,8 @@ inherited ConnOptionsForm: TConnOptionsForm
         Left = 18
         Height = 19
         Top = 144
-        Width = 275
-        Caption = 'Activate the translated version of the application'
+        Width = 444
+        Caption = 'Activate the translated version of the application (need to restart the application)'
         OnChange = edTranslateFormChange
         TabOrder = 1
       end

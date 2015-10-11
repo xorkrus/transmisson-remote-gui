@@ -1,4 +1,4 @@
-inherited MainForm: TMainForm
+object MainForm: TMainForm
   Left = 222
   Height = 506
   Top = 157
@@ -22,7 +22,8 @@ inherited MainForm: TMainForm
   OnResize = FormResize
   OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
-  object panTop: TPanel[0]
+  LCLVersion = '1.2.6.0'
+  object panTop: TPanel
     Left = 0
     Height = 128
     Top = 26
@@ -301,7 +302,7 @@ inherited MainForm: TMainForm
       OnEditorHide = gTorrentsEditorHide
     end
   end
-  object StatusBar: TStatusBar[1]
+  object StatusBar: TStatusBar
     Left = 0
     Height = 23
     Top = 465
@@ -325,7 +326,7 @@ inherited MainForm: TMainForm
     SimplePanel = False
     OnMouseDown = StatusBarMouseDown
   end
-  object PageInfo: TPageControl[2]
+  object PageInfo: TPageControl
     Left = 0
     Height = 306
     Top = 159
@@ -1078,7 +1079,7 @@ inherited MainForm: TMainForm
       end
     end
   end
-  object VSplitter: TSplitter[3]
+  object VSplitter: TSplitter
     Cursor = crVSplit
     Left = 0
     Height = 5
@@ -1090,7 +1091,7 @@ inherited MainForm: TMainForm
     OnChangeBounds = VSplitterChangeBounds
     ResizeAnchor = akBottom
   end
-  object MainToolBar: TToolBar[4]
+  object MainToolBar: TToolBar
     Left = 0
     Height = 24
     Top = 0
@@ -1191,8 +1192,15 @@ inherited MainForm: TMainForm
       Top = 2
       Action = acQMoveDown
     end
+    object ToolButton5: TToolButton
+      Left = 296
+      Hint = 'Application Options (Ctrl+F9)'
+      Top = 2
+      Action = acConnOptions
+      ImageIndex = 8
+    end
   end
-  object panReconnect: TPanel[5]
+  object panReconnect: TPanel
     Left = 532
     Height = 44
     Top = 56
@@ -1257,7 +1265,7 @@ inherited MainForm: TMainForm
       Pen.Color = clBtnShadow
     end
   end
-  object panDetailsWait: TPanel[6]
+  object panDetailsWait: TPanel
     Left = 495
     Height = 33
     Top = 56
@@ -1266,7 +1274,7 @@ inherited MainForm: TMainForm
     TabOrder = 3
     Visible = False
   end
-  object MainMenu: TMainMenu[7]
+  object MainMenu: TMainMenu
     Images = ImageList16
     left = 8
     top = 28
@@ -1934,6 +1942,8 @@ inherited MainForm: TMainForm
       end
       object MenuItem17: TMenuItem
         Action = acOptions
+        Hint = 'Application Options (Ctrl+F9)'
+        ImageIndex = 8
         OnClick = acOptionsExecute
       end
       object MenuItem32: TMenuItem
@@ -2010,7 +2020,7 @@ inherited MainForm: TMainForm
       end
     end
   end
-  object ActionList: TActionList[8]
+  object ActionList: TActionList
     left = 40
     top = 28
     object acConnect: TAction
@@ -2329,21 +2339,21 @@ inherited MainForm: TMainForm
       Visible = False
     end
   end
-  object TorrentsListTimer: TTimer[9]
+  object TorrentsListTimer: TTimer
     Enabled = False
     Interval = 100
     OnTimer = TorrentsListTimerTimer
     left = 253
     top = 55
   end
-  object OpenTorrentDlg: TOpenDialog[10]
+  object OpenTorrentDlg: TOpenDialog
     Title = 'Select a .torrent to open'
     Filter = 'Torrents (*.torrent)|*.torrent|All files (*.*)|*.*'
     Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     left = 213
     top = 55
   end
-  object pmTorrents: TPopupMenu[11]
+  object pmTorrents: TPopupMenu
     Images = ImageList16
     OnPopup = pmTorrentsPopup
     left = 149
@@ -2837,7 +2847,7 @@ inherited MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object ApplicationProperties: TApplicationProperties[12]
+  object ApplicationProperties: TApplicationProperties
     ShowButtonGlyphs = sbgSystem
     OnIdle = ApplicationPropertiesIdle
     OnEndSession = ApplicationPropertiesEndSession
@@ -2846,7 +2856,7 @@ inherited MainForm: TMainForm
     left = 348
     top = 56
   end
-  object pmFiles: TPopupMenu[13]
+  object pmFiles: TPopupMenu
     Images = ImageList16
     OnPopup = pmFilesPopup
     left = 304
@@ -3112,14 +3122,14 @@ inherited MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object TickTimer: TTimer[14]
+  object TickTimer: TTimer
     Enabled = False
     Interval = 200
     OnTimer = TickTimerTimer
     left = 408
     top = 55
   end
-  object ImageList16: TImageList[15]
+  object ImageList16: TImageList
     left = 412
     top = 92
     Bitmap = {
@@ -4502,7 +4512,7 @@ inherited MainForm: TMainForm
       FF000000FF000000FF000000FF00
     }
   end
-  object pmLabels: TPopupMenu[16]
+  object pmLabels: TPopupMenu
     left = 268
     top = 92
     object miCopyLabel: TMenuItem
@@ -4510,7 +4520,7 @@ inherited MainForm: TMainForm
       OnClick = miCopyLabelClick
     end
   end
-  object TrayIcon: TTrayIcon[17]
+  object TrayIcon: TTrayIcon
     BalloonFlags = bfInfo
     BalloonTimeout = 10000
     PopUpMenu = pmTray
@@ -4519,7 +4529,7 @@ inherited MainForm: TMainForm
     left = 456
     top = 56
   end
-  object pmTray: TPopupMenu[18]
+  object pmTray: TPopupMenu
     Images = ImageList16
     left = 460
     top = 88
@@ -4600,7 +4610,7 @@ inherited MainForm: TMainForm
       OnClick = acExitExecute
     end
   end
-  object imgFlags: TImageList[19]
+  object imgFlags: TImageList
     Height = 12
     Width = 18
     left = 144
@@ -4636,7 +4646,7 @@ inherited MainForm: TMainForm
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object pmPeers: TPopupMenu[20]
+  object pmPeers: TPopupMenu
     left = 340
     top = 92
     object MenuItem29: TMenuItem
@@ -4659,13 +4669,13 @@ inherited MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object FilterTimer: TTimer[21]
+  object FilterTimer: TTimer
     Interval = 100
     OnTimer = FilterTimerTimer
     left = 76
     top = 28
   end
-  object pmTrackers: TPopupMenu[22]
+  object pmTrackers: TPopupMenu
     Images = ImageList16
     left = 376
     top = 92
@@ -4692,7 +4702,7 @@ inherited MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object pmConnections: TPopupMenu[23]
+  object pmConnections: TPopupMenu
     left = 12
     top = 72
     object sepCon2: TMenuItem
@@ -4710,15 +4720,15 @@ inherited MainForm: TMainForm
       OnClick = acConnOptionsExecute
     end
   end
-  object pmDownSpeeds: TPopupMenu[24]
+  object pmDownSpeeds: TPopupMenu
     left = 700
     top = 96
   end
-  object pmUpSpeeds: TPopupMenu[25]
+  object pmUpSpeeds: TPopupMenu
     left = 732
     top = 96
   end
-  object pmFilter: TPopupMenu[26]
+  object pmFilter: TPopupMenu
     left = 56
     top = 72
     object MenuItem90: TMenuItem
