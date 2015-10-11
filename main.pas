@@ -531,6 +531,7 @@ type
     procedure lvTrackersCellAttributes(Sender: TVarGrid; ACol, ARow, ADataCol: integer; AState: TGridDrawState; var CellAttribs: TCellAttributes);
     procedure lvTrackersDblClick(Sender: TObject);
     procedure lvTrackersKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
+    procedure MainToolBarClick(Sender: TObject);
     procedure miDonateClick(Sender: TObject);
     procedure miHomePageClick(Sender: TObject);
     procedure PageInfoResize(Sender: TObject);
@@ -969,14 +970,18 @@ end;
 
 procedure LoadTranslation;
 begin
-  FTranslationFileName := Ini.ReadString('Interface', 'TranslationFile', '');
-  if FTranslationFileName <> '-' then
-    if (FTranslationFileName = '') or not IsTranslationFileValid(DefaultLangDir + FTranslationFileName) then
-      FTranslationLanguage := LoadDefaultTranslationFile(@OnTranslate)
-    else
-      FTranslationLanguage := LoadTranslationFile(DefaultLangDir + FTranslationFileName, @OnTranslate);
-  if FTranslationLanguage = '' then
-    FTranslationLanguage := 'English'
+  if Ini.ReadBool('Translation', 'TranslateForm', True) = False then
+     FTranslationLanguage := 'English'
+  else begin
+    FTranslationFileName := Ini.ReadString('Interface', 'TranslationFile', '');
+    if FTranslationFileName <> '-' then
+       if (FTranslationFileName = '') or not IsTranslationFileValid(DefaultLangDir + FTranslationFileName) then
+          FTranslationLanguage := LoadDefaultTranslationFile(@OnTranslate)
+       else
+           FTranslationLanguage := LoadTranslationFile(DefaultLangDir + FTranslationFileName, @OnTranslate);
+       if FTranslationLanguage = '' then
+          FTranslationLanguage := 'English'
+    end;
 end;
 
 function CheckAppParams: boolean;
@@ -3934,6 +3939,11 @@ begin
   end;
 end;
 
+procedure TMainForm.MainToolBarClick(Sender: TObject);
+begin
+
+end;
+
 procedure TMainForm.miDonateClick(Sender: TObject);
 begin
   GoDonate;
@@ -5465,6 +5475,7 @@ procedure TMainForm.FillGeneralInfo(t: TJSONObject);
 var
   i, j, idx: integer;
   s: string;
+  tr: string;
   f: double;
 begin
   if (gTorrents.Items.Count = 0) or (t = nil) then begin
@@ -5487,7 +5498,12 @@ begin
 
   panTransfer.ChildSizing.Layout:=cclNone;
   txStatus.Caption:=GetTorrentStatus(idx);
-  txError.Caption:=GetTorrentError(t, gTorrents.Items[idxStatus, idx]);
+  tr:=GetTorrentError(t, gTorrents.Items[idxStatus, idx]);
+  if Ini.ReadBool('Translation', 'TranslateMsg', True) then
+     txError.Caption:=TranslateString(tr, True)
+  else
+      txError.Caption:=tr;
+
   i:=t.Integers['eta'];
   f:=gTorrents.Items[idxDownSpeed, idx];
   if f > 0 then

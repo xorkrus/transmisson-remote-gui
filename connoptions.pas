@@ -50,6 +50,8 @@ type
     cbAuth: TCheckBox;
     cbShowAdvanced: TCheckBox;
     cbAskPassword: TCheckBox;
+    edTranslateForm: TCheckBox;
+    edTranslateMsg: TCheckBox;
     edRpcPath: TEdit;
     edUpSpeeds: TEdit;
     edHost: TEdit;
@@ -96,6 +98,7 @@ type
     procedure cbShowAdvancedClick(Sender: TObject);
     procedure cbUseProxyClick(Sender: TObject);
     procedure edHostChange(Sender: TObject);
+    procedure edTranslateFormChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure tabPathsShow(Sender: TObject);
@@ -268,6 +271,14 @@ begin
   if edConnection.Visible and (edConnection.Text = FCurHost) then
     edConnection.Text:=edHost.Text;
   FCurHost:=edHost.Text;
+end;
+
+procedure TConnOptionsForm.edTranslateFormChange(Sender: TObject);
+begin
+  if edTranslateForm.Checked then
+     edTranslateMsg.Enabled:=True
+  else
+    edTranslateMsg.Enabled:=False;
 end;
 
 procedure TConnOptionsForm.FormCreate(Sender: TObject);
@@ -466,6 +477,8 @@ begin
     edPaths.Text:=StringReplace(ReadString(Sec, 'PathMap', ''), '|', LineEnding, [rfReplaceAll]);
     edDownSpeeds.Text:=ReadString(Sec, 'DownSpeeds', DefSpeeds);
     edUpSpeeds.Text:=ReadString(Sec, 'UpSpeeds', DefSpeeds);
+    edTranslateMsg.Checked:=ReadBool('Translation', 'TranslateMsg', True);
+    edTranslateForm.Checked:=ReadBool('Translation', 'TranslateForm', True);
     cbUseProxyClick(nil);
   end;
   FCurConn:=ConnName;
@@ -511,6 +524,8 @@ begin
     else
       WriteString(Sec, 'RpcPath', edRpcPath.Text);
 
+    WriteBool('Translation', 'TranslateMsg', edTranslateMsg.Checked);
+    WriteBool('Translation', 'TranslateForm', edTranslateForm.Checked);
     WriteBool(Sec, 'UseProxy', cbUseProxy.Checked);
     WriteBool(Sec, 'UseSockProxy', cbUseSocks5.Checked);
     WriteString(Sec, 'ProxyHost', Trim(edProxy.Text));
@@ -554,6 +569,8 @@ begin
             ((ReadString(Sec, 'Password', '') <> '') and (edPassword.Text <> '******')) or
             (edRpcPath.Text <> ReadString(Sec, 'RpcPath', DefaultRpcPath)) or
             (cbUseProxy.Checked <> ReadBool(Sec, 'UseProxy', False)) or
+            (edTranslateMsg.Checked <> ReadBool('Translation', 'TranslateMsg', True)) or
+            (edTranslateForm.Checked <> ReadBool('Translation', 'TranslateForm', True)) or
             (edProxy.Text <> ReadString(Sec, 'ProxyHost', '')) or
             (edProxyPort.Value <> ReadInteger(Sec, 'ProxyPort', 8080)) or
             (edProxyUserName.Text <> ReadString(Sec, 'ProxyUser', '')) or
