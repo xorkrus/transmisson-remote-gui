@@ -1,9 +1,5 @@
 TranslationLanguage=Italiano
 
-Activate the translated version of the application=Attivare la versione tradotta dell'applicazione
-Activate the translation of the Transmission strings=Attivare la traduzione dei messaggi di Transmission
-Tracker: Connection failed=Tracker: Connessione fallita
-No data found! Ensure your drives are connected or use "Set Location". To re-download, remove the torrent and re-add it=Nessun dato trovato! Verificare che i dischi siano connessi, oppure usare "Seleziona la destinazione dati". Altrimenti, cancellare e riaggiungere il torrent
 "Remote to local path mappings.~~Examples:~/share=\\pch\share~/var/downloads/music=Z:\music"="Elenco delle risorse locali assegnate ai percorsi remoti.~~Esempi:~/share=\\pch\share~/var/downloads/music=Z:\music"
 %d x %s (have %d)=%d x %s (ricevute %d)
 %ds=%ds
@@ -25,6 +21,8 @@ No data found! Ensure your drives are connected or use "Set Location". To re-dow
 /s=/s
 Abort=Abbandona
 About=Informazioni su
+Activate the translated version of the application=Attivare la versione tradotta dell'applicazione
+Activate the translation of the Transmission strings=Attivare la traduzione dei messaggi di Transmission
 Active=Attivi
 Add new torrent=Aggiungi nuovo torrent
 &Add torrent=Aggiungi torrent
@@ -336,6 +334,7 @@ Manage connections to Transmission=Gestisci le connessioni a Transmission
 Manage connections=Gestisci connessioni
 Network (WAN)=Rete globale (WAN)
 New connection to Transmission=Nuova connessione a Transmission
+No data found! Ensure your drives are connected or use "Set Location". To re-download, remove the torrent and re-add it=Nessun dato trovato! Verificare che i dischi siano connessi, oppure usare "Seleziona la destinazione dati". Altrimenti, cancellare e riaggiungere il torrent
 Pick random port on Transmission launch=Scegliere una porta casuale all'avvio di Transmission
 Please enter a password to connect to %s=Inserire una password per connettersi a %s
 Please specify how %s will connect to a remote host running Transmission daemon (service)=Specificare come %s effettuerà la connessione all'host remoto su cui è in esecuzione il demone (servizio) Transmission
@@ -348,6 +347,7 @@ Show notifications in tray icon=Visualizza le notifiche quando è minimizzato
 System integration=Integrazioni di sistema
 Torrent already exists in the list=Il torrent esiste già nell'elenco
 Torrent not registered with this tracker==Torrent non registrato su questo tracker
+Tracker: Connection failed=Tracker: Connessione fallita
 Unable to find path mapping.~Use the application's options to setup path mappings=Impossibile trovare la mappatura percorsi.~Verifica le opzioni dell'applicazione per impostare la mappatura percorsi
 Update trackers for the existing torrent?=Aggiorna i tracker per il torrent esistente?
 You need to restart the application to apply changes=Devi riavviare l'applicazione per applicare le modifiche
