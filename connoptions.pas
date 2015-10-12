@@ -50,6 +50,8 @@ type
     cbAuth: TCheckBox;
     cbShowAdvanced: TCheckBox;
     cbAskPassword: TCheckBox;
+    edLanguageFile: TEdit;
+    edLanguageName: TEdit;
     edTranslateForm: TCheckBox;
     edTranslateMsg: TCheckBox;
     edRpcPath: TEdit;
@@ -66,6 +68,8 @@ type
     edPassword: TEdit;
     edPaths: TMemo;
     gbSpeed: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
     txRpcPath: TLabel;
     txConName: TLabel;
     txConnHelp: TLabel;
@@ -276,9 +280,13 @@ end;
 procedure TConnOptionsForm.edTranslateFormChange(Sender: TObject);
 begin
   if edTranslateForm.Checked then
-     edTranslateMsg.Enabled:=True
+    edTranslateMsg.Enabled:=True
   else
+    begin
     edTranslateMsg.Enabled:=False;
+    edLanguageName.Text:='';
+    end;
+
 end;
 
 procedure TConnOptionsForm.FormCreate(Sender: TObject);
@@ -305,6 +313,14 @@ begin
   end;
 
   cbShowAdvanced.Top:=edRpcPath.Top;
+
+  if edTranslateForm.Checked then
+    edTranslateMsg.Enabled:=True
+  else
+    edTranslateMsg.Enabled:=False;
+  Main.LoadTranslation;
+  edLanguageName.Text:=Main.FTranslationLanguage;
+  edLanguageFile.Text:=GetAppConfigDir(False)+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
 end;
 
 procedure TConnOptionsForm.FormShow(Sender: TObject);

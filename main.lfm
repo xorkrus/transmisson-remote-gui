@@ -1,4 +1,4 @@
-object MainForm: TMainForm
+inherited MainForm: TMainForm
   Left = 222
   Height = 506
   Top = 157
@@ -22,8 +22,7 @@ object MainForm: TMainForm
   OnResize = FormResize
   OnShow = FormShow
   OnWindowStateChange = FormWindowStateChange
-  LCLVersion = '1.2.6.0'
-  object panTop: TPanel
+  object panTop: TPanel[0]
     Left = 0
     Height = 128
     Top = 26
@@ -302,7 +301,7 @@ object MainForm: TMainForm
       OnEditorHide = gTorrentsEditorHide
     end
   end
-  object StatusBar: TStatusBar
+  object StatusBar: TStatusBar[1]
     Left = 0
     Height = 23
     Top = 465
@@ -326,7 +325,7 @@ object MainForm: TMainForm
     SimplePanel = False
     OnMouseDown = StatusBarMouseDown
   end
-  object PageInfo: TPageControl
+  object PageInfo: TPageControl[2]
     Left = 0
     Height = 306
     Top = 159
@@ -1079,7 +1078,7 @@ object MainForm: TMainForm
       end
     end
   end
-  object VSplitter: TSplitter
+  object VSplitter: TSplitter[3]
     Cursor = crVSplit
     Left = 0
     Height = 5
@@ -1091,7 +1090,7 @@ object MainForm: TMainForm
     OnChangeBounds = VSplitterChangeBounds
     ResizeAnchor = akBottom
   end
-  object MainToolBar: TToolBar
+  object MainToolBar: TToolBar[4]
     Left = 0
     Height = 24
     Top = 0
@@ -1200,7 +1199,7 @@ object MainForm: TMainForm
       ImageIndex = 8
     end
   end
-  object panReconnect: TPanel
+  object panReconnect: TPanel[5]
     Left = 532
     Height = 44
     Top = 56
@@ -1265,7 +1264,7 @@ object MainForm: TMainForm
       Pen.Color = clBtnShadow
     end
   end
-  object panDetailsWait: TPanel
+  object panDetailsWait: TPanel[6]
     Left = 495
     Height = 33
     Top = 56
@@ -1274,7 +1273,7 @@ object MainForm: TMainForm
     TabOrder = 3
     Visible = False
   end
-  object MainMenu: TMainMenu
+  object MainMenu: TMainMenu[7]
     Images = ImageList16
     left = 8
     top = 28
@@ -1942,6 +1941,42 @@ object MainForm: TMainForm
       end
       object MenuItem17: TMenuItem
         Action = acOptions
+        Bitmap.Data = {
+          36040000424D3604000000000000360000002800000010000000100000000100
+          2000000000000004000064000000640000000000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          000000000000292946FF7F5586FF7F5586FF0000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000292946FF7F5586FFBF9CC2FFBF9CC2FF1A47D9FF00000000000000000000
+          0000000000000000000000000000000000000000000000000000000000002929
+          46FF0323D2FF8C89E6FF001ACEFF8380CBFF1A47D9FF00000000000000000000
+          0000000000000000000000000000000000000000000000000000292946FF0323
+          D2FF93A9FFFF0436FFFF001ACEFFB7B4E4FF1A47D9FF00000000000000000000
+          00000000000000000000000000000000000000000000292946FF0323D2FF93A9
+          FFFF0033FFFF001ACEFF9BA7EAFF1A47D9FF0000000000000000000000000000
+          000000000000000000000000000000000000292946FF0323D2FF93A9FFFF0033
+          FFFF001ACEFF93A3EEFF1A47D9FF000000000000000000000000000000000000
+          0000000000000000000000000000292946FF0323D2FF93A9FFFF0033FFFF001A
+          CEFF93A3EEFF1A47D9FF00000000000000000000000000000000000000000000
+          0000595959FF595959FF595959FF0323D2FF93A9FFFF0033FFFF001ACEFF93A3
+          EEFF1A47D9FF0000000000000000000000000000000000000000000000005959
+          59FF595959FFABABABFF999999FF7A83BDFF0031FCFF001ACEFF93A3EEFF1A47
+          D9FF000000000000000000000000000000000000000000000000595959FF5959
+          59FF9C9C9CFFB9B9B9FFC4C4C4FFA8A8A8FF5665AEFF7393EEFF1A47D9FF0000
+          0000000000000000000000000000000000000000000000000000595959FFABAB
+          ABFFCDCDCDFFC7C7C7FFC3C3C3FFCFCFCFFFA7A7A7FF595959FF000000000000
+          0000000000000000000000000000000000000000000000000000595959FFDEDE
+          DEFF595959FF595959FFB7B7B7FFD6D6D6FFBCBCBCFF595959FF000000000000
+          0000000000000000000000000000000000000000000000000000595959FF5959
+          59FF00000000999999FF595959FFDEDEDEFFC8C8C8FF595959FF000000000000
+          0000000000000000000000000000000000000000000000000000595959FF0000
+          0000999999FF595959FFD4D4D4FFE0E0E0FF595959FF999999FF000000000000
+          0000000000000000000000000000000000000000000000000000000000000000
+          0000595959FFCBCBCBFFCBCBCBFF575757FF595959FF00000000000000000000
+          000000000000000000000000000000000000000000000000000000000000ABAB
+          ABFF595959FF595959FF595959FF999999FF0000000000000000000000000000
+          0000000000000000000000000000000000000000000000000000
+        }
         Hint = 'Application Options (Ctrl+F9)'
         ImageIndex = 8
         OnClick = acOptionsExecute
@@ -2020,7 +2055,7 @@ object MainForm: TMainForm
       end
     end
   end
-  object ActionList: TActionList
+  object ActionList: TActionList[8]
     left = 40
     top = 28
     object acConnect: TAction
@@ -2339,21 +2374,21 @@ object MainForm: TMainForm
       Visible = False
     end
   end
-  object TorrentsListTimer: TTimer
+  object TorrentsListTimer: TTimer[9]
     Enabled = False
     Interval = 100
     OnTimer = TorrentsListTimerTimer
     left = 253
     top = 55
   end
-  object OpenTorrentDlg: TOpenDialog
+  object OpenTorrentDlg: TOpenDialog[10]
     Title = 'Select a .torrent to open'
     Filter = 'Torrents (*.torrent)|*.torrent|All files (*.*)|*.*'
     Options = [ofAllowMultiSelect, ofEnableSizing, ofViewDetail]
     left = 213
     top = 55
   end
-  object pmTorrents: TPopupMenu
+  object pmTorrents: TPopupMenu[11]
     Images = ImageList16
     OnPopup = pmTorrentsPopup
     left = 149
@@ -2847,7 +2882,7 @@ object MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object ApplicationProperties: TApplicationProperties
+  object ApplicationProperties: TApplicationProperties[12]
     ShowButtonGlyphs = sbgSystem
     OnIdle = ApplicationPropertiesIdle
     OnEndSession = ApplicationPropertiesEndSession
@@ -2856,7 +2891,7 @@ object MainForm: TMainForm
     left = 348
     top = 56
   end
-  object pmFiles: TPopupMenu
+  object pmFiles: TPopupMenu[13]
     Images = ImageList16
     OnPopup = pmFilesPopup
     left = 304
@@ -3122,14 +3157,14 @@ object MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object TickTimer: TTimer
+  object TickTimer: TTimer[14]
     Enabled = False
     Interval = 200
     OnTimer = TickTimerTimer
     left = 408
     top = 55
   end
-  object ImageList16: TImageList
+  object ImageList16: TImageList[15]
     left = 412
     top = 92
     Bitmap = {
@@ -4512,7 +4547,7 @@ object MainForm: TMainForm
       FF000000FF000000FF000000FF00
     }
   end
-  object pmLabels: TPopupMenu
+  object pmLabels: TPopupMenu[16]
     left = 268
     top = 92
     object miCopyLabel: TMenuItem
@@ -4520,7 +4555,7 @@ object MainForm: TMainForm
       OnClick = miCopyLabelClick
     end
   end
-  object TrayIcon: TTrayIcon
+  object TrayIcon: TTrayIcon[17]
     BalloonFlags = bfInfo
     BalloonTimeout = 10000
     PopUpMenu = pmTray
@@ -4529,7 +4564,7 @@ object MainForm: TMainForm
     left = 456
     top = 56
   end
-  object pmTray: TPopupMenu
+  object pmTray: TPopupMenu[18]
     Images = ImageList16
     left = 460
     top = 88
@@ -4610,7 +4645,7 @@ object MainForm: TMainForm
       OnClick = acExitExecute
     end
   end
-  object imgFlags: TImageList
+  object imgFlags: TImageList[19]
     Height = 12
     Width = 18
     left = 144
@@ -4646,7 +4681,7 @@ object MainForm: TMainForm
       FF00FFFFFF00FFFFFF00FFFFFF00
     }
   end
-  object pmPeers: TPopupMenu
+  object pmPeers: TPopupMenu[20]
     left = 340
     top = 92
     object MenuItem29: TMenuItem
@@ -4669,13 +4704,13 @@ object MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object FilterTimer: TTimer
+  object FilterTimer: TTimer[21]
     Interval = 100
     OnTimer = FilterTimerTimer
     left = 76
     top = 28
   end
-  object pmTrackers: TPopupMenu
+  object pmTrackers: TPopupMenu[22]
     Images = ImageList16
     left = 376
     top = 92
@@ -4702,7 +4737,7 @@ object MainForm: TMainForm
       OnClick = acSetupColumnsExecute
     end
   end
-  object pmConnections: TPopupMenu
+  object pmConnections: TPopupMenu[23]
     left = 12
     top = 72
     object sepCon2: TMenuItem
@@ -4720,15 +4755,15 @@ object MainForm: TMainForm
       OnClick = acConnOptionsExecute
     end
   end
-  object pmDownSpeeds: TPopupMenu
+  object pmDownSpeeds: TPopupMenu[24]
     left = 700
     top = 96
   end
-  object pmUpSpeeds: TPopupMenu
+  object pmUpSpeeds: TPopupMenu[25]
     left = 732
     top = 96
   end
-  object pmFilter: TPopupMenu
+  object pmFilter: TPopupMenu[26]
     left = 56
     top = 72
     object MenuItem90: TMenuItem

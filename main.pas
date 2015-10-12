@@ -668,6 +668,7 @@ type
   end;
 
 function CheckAppParams: boolean;
+procedure LoadTranslation;
 function GetHumanSize(sz: double; RoundTo: integer = 0; const EmptyStr: string = '-'): string;
 function PriorityToStr(p: integer; var ImageIndex: integer): string;
 procedure DrawProgressCell(Sender: TVarGrid; ACol, ARow, ADataCol: integer; AState: TGridDrawState; const ACellRect: TRect);
