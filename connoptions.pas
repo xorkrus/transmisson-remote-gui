@@ -24,7 +24,7 @@ unit ConnOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin, ComCtrls, Buttons, ButtonPanel, ExtCtrls, BaseForm;
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin, ComCtrls, Buttons, ButtonPanel, ExtCtrls, BaseForm, ResTranslator;
 
 const
   DefSpeeds = '0,10,25,50,100,250,500,750,1000,2500,5000,7000';
@@ -103,6 +103,7 @@ type
     procedure cbUseProxyClick(Sender: TObject);
     procedure edHostChange(Sender: TObject);
     procedure edIniFileOpen(Sender: TObject);
+    procedure edLanguageDoubleClick(Sender: TObject);
     procedure edTranslateFormChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -289,6 +290,24 @@ procedure TConnOptionsForm.edIniFileOpen(Sender: TObject);
 
     ForceAppNormal;
     MessageDlg(sNoPathMapping, mtInformation, [mbOK], 0);
+end;
+
+procedure TConnOptionsForm.edLanguageDoubleClick(Sender: TObject);
+var
+Sl: TStringList;
+begin
+Sl:= GetAvailableTranslations(DefaultLangDir);
+GetTranslationFileName(Main.FTranslationLanguage, Sl);
+ShowMessage('Language pathfile: ' + IniFileName + sLineBreak + sLineBreak +'Language pathname: ' + DefaultLangDir + sLineBreak + sLineBreak + 'Language list:' + sLineBreak + Sl.Text);
+edLanguage.Text:=IniFileName;
+  if IniFileName <> '' then begin
+      AppBusy;
+      OpenURL(DefaultLangDir);
+      AppNormal;
+      exit;
+  end;
+  ForceAppNormal;
+  MessageDlg(sNoPathMapping, mtInformation, [mbOK], 0);
 end;
 
 procedure TConnOptionsForm.edTranslateFormChange(Sender: TObject);

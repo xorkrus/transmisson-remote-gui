@@ -1,7 +1,7 @@
 inherited ConnOptionsForm: TConnOptionsForm
-  Left = 401
+  Left = 611
   Height = 379
-  Top = 174
+  Top = 108
   Width = 529
   HorzScrollBar.Page = 349
   VertScrollBar.Page = 238
@@ -21,11 +21,11 @@ inherited ConnOptionsForm: TConnOptionsForm
     Height = 268
     Top = 69
     Width = 513
-    ActivePage = tabMisc
+    ActivePage = tabConnection
     Align = alClient
     BorderSpacing.Left = 8
     BorderSpacing.Right = 8
-    TabIndex = 3
+    TabIndex = 0
     TabOrder = 1
     object tabConnection: TTabSheet
       Caption = 'Transmission'
@@ -366,6 +366,7 @@ inherited ConnOptionsForm: TConnOptionsForm
         Height = 23
         Top = 184
         Width = 214
+        OnDblClick = edLanguageDoubleClick
         ReadOnly = True
         TabOrder = 3
       end
