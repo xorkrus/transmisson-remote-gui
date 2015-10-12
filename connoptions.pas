@@ -50,8 +50,8 @@ type
     cbAuth: TCheckBox;
     cbShowAdvanced: TCheckBox;
     cbAskPassword: TCheckBox;
-    edLanguageFile: TEdit;
-    edLanguageName: TEdit;
+    edIniFileName: TEdit;
+    edLanguage: TEdit;
     edTranslateForm: TCheckBox;
     edTranslateMsg: TCheckBox;
     edRpcPath: TEdit;
@@ -102,6 +102,7 @@ type
     procedure cbShowAdvancedClick(Sender: TObject);
     procedure cbUseProxyClick(Sender: TObject);
     procedure edHostChange(Sender: TObject);
+    procedure edIniFileOpen(Sender: TObject);
     procedure edTranslateFormChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
@@ -126,7 +127,7 @@ type
 
 implementation
 
-uses Main, synacode, utils, rpc;
+uses Main, synacode, utils, rpc, LCLIntf;
 
 { TConnOptionsForm }
 
@@ -277,6 +278,19 @@ begin
   FCurHost:=edHost.Text;
 end;
 
+procedure TConnOptionsForm.edIniFileOpen(Sender: TObject);
+  begin
+    if edIniFileName.Text <> '' then begin
+      AppBusy;
+      OpenURL(edIniFileName.Text);
+      AppNormal;
+      exit;
+    end;
+
+    ForceAppNormal;
+    MessageDlg(sNoPathMapping, mtInformation, [mbOK], 0);
+end;
+
 procedure TConnOptionsForm.edTranslateFormChange(Sender: TObject);
 begin
   if edTranslateForm.Checked then
@@ -284,7 +298,7 @@ begin
   else
     begin
     edTranslateMsg.Enabled:=False;
-    edLanguageName.Text:='';
+    edLanguage.Text:='';
     end;
 
 end;
@@ -319,8 +333,8 @@ begin
   else
     edTranslateMsg.Enabled:=False;
   Main.LoadTranslation;
-  edLanguageName.Text:=Main.FTranslationLanguage;
-  edLanguageFile.Text:=GetAppConfigDir(False)+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
+  edLanguage.Text:=Main.FTranslationLanguage;
+  edIniFileName.Text:=GetAppConfigDir(False)+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
 end;
 
 procedure TConnOptionsForm.FormShow(Sender: TObject);

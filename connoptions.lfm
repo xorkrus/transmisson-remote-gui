@@ -1,7 +1,7 @@
 inherited ConnOptionsForm: TConnOptionsForm
   Left = 401
   Height = 379
-  Top = 180
+  Top = 174
   Width = 529
   HorzScrollBar.Page = 349
   VertScrollBar.Page = 238
@@ -361,7 +361,7 @@ inherited ConnOptionsForm: TConnOptionsForm
         Caption = 'Language:'
         ParentColor = False
       end
-      object edLanguageName: TEdit
+      object edLanguage: TEdit
         Left = 128
         Height = 23
         Top = 184
@@ -377,12 +377,13 @@ inherited ConnOptionsForm: TConnOptionsForm
         Caption = 'Config file:'
         ParentColor = False
       end
-      object edLanguageFile: TEdit
+      object edIniFileName: TEdit
         Left = 128
         Height = 23
         Top = 211
         Width = 368
         Alignment = taRightJustify
+        OnDblClick = edIniFileOpen
         ReadOnly = True
         TabOrder = 4
       end

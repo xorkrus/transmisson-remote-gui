@@ -985,12 +985,12 @@ inherited MainForm: TMainForm
     end
     object tabFiles: TTabSheet
       Caption = 'Files'
-      ClientHeight = 279
+      ClientHeight = 278
       ClientWidth = 772
       ImageIndex = 7
       object lvFiles: TVarGrid
         Left = 0
-        Height = 279
+        Height = 278
         Top = 0
         Width = 772
         Align = alClient
