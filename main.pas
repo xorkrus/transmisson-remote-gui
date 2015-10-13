@@ -55,6 +55,9 @@ resourcestring
   sReconnect = 'Reconnect in %d seconds.';
   sDisconnected = 'Disconnected';
   sConnectingToDaemon = 'Connecting to daemon...';
+  sLanguagePathFile = 'Language pathfile';
+  sLanguagePath = 'Language path';
+  sLanguageList = 'Language list';
   sSecs = '%ds';
   sMins = '%dm';
   sHours = '%dh';

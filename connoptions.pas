@@ -298,7 +298,11 @@ Sl: TStringList;
 begin
 Sl:= GetAvailableTranslations(DefaultLangDir);
 GetTranslationFileName(Main.FTranslationLanguage, Sl);
-ShowMessage('Language pathfile: ' + IniFileName + sLineBreak + sLineBreak +'Language pathname: ' + DefaultLangDir + sLineBreak + sLineBreak + 'Language list:' + sLineBreak + Sl.Text);
+ShowMessage(
+            sLanguagePathFile + ': ' + IniFileName + sLineBreak + sLineBreak +
+            sLanguagePath + ': ' + DefaultLangDir + sLineBreak + sLineBreak +
+            sLanguageList + ':' + sLineBreak + Sl.Text
+            );
 edLanguage.Text:=IniFileName;
   if IniFileName <> '' then begin
       AppBusy;

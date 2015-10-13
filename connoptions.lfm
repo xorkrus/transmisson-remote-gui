@@ -365,7 +365,7 @@ inherited ConnOptionsForm: TConnOptionsForm
         Left = 128
         Height = 23
         Top = 184
-        Width = 214
+        Width = 368
         OnDblClick = edLanguageDoubleClick
         ReadOnly = True
         TabOrder = 3

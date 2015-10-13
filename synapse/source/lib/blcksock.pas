@@ -109,6 +109,10 @@ uses
 {$ENDIF}
   ;
 
+resourcestring
+  sBlockSocket10004 = 'Interrupted system call';
+  sBlockSocket10060 = 'Connection timed out';
+
 const
 
   SynapseRelease = '38';
@@ -3145,7 +3149,8 @@ begin
     WSAETOOMANYREFS: {10059}
       Result := 'Too many references:can''t splice';
     WSAETIMEDOUT: {10060}
-      Result := 'Connection timed out';
+      //Result := 'Connection timed out';
+      Result := sBlockSocket10060;
     WSAECONNREFUSED: {10061}
       Result := 'Connection refused';
     WSAELOOP: {10062}
