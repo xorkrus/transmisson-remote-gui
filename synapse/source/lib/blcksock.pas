@@ -109,60 +109,6 @@ uses
 {$ENDIF}
   ;
 
-resourcestring
-  sSockErr_Other = 'Other Winsock error';
-  sSockErr_EINTR_10004 = 'Interrupted system call';
-  sSockErr_EBADF_10009 = 'Bad file number';
-  sSockErr_EACCES_10013 = 'Permission denied';
-  sSockErr_EFAULT_10014 = 'Bad address';
-  sSockErr_EINVAL_10022 = 'Invalid argument';
-  sSockErr_EMFILE_10024 = 'Too many open files';
-  sSockErr_EWOULDBLOCK_10035 = 'Operation would block';
-  sSockErr_EINPROGRESS_10036 = 'Operation now in progress';
-  sSockErr_EALREADY_10037 = 'Operation already in progress';
-  sSockErr_ENOTSOCK_10038 = 'Socket operation on nonsocket';
-  sSockErr_EDESTADDRREQ_10039 = 'Destination address required';
-  sSockErr_EMSGSIZE_10040 = 'Message too long';
-  sSockErr_EPROTOTYPE_10041 = 'Protocol wrong type for Socket';
-  sSockErr_ENOPROTOOPT_10042 = 'Protocol not available';
-  sSockErr_EPROTONOSUPPORT_10043 = 'Protocol not supported';
-  sSockErr_ESOCKTNOSUPPORT_10044 = 'Socket not supported';
-  sSockErr_EOPNOTSUPP_10045 = 'Operation not supported on Socket';
-  sSockErr_EPFNOSUPPORT_10046 = 'Protocol family not supported';
-  sSockErr_EAFNOSUPPORT_10047 = 'Address family not supported';
-  sSockErr_EADDRINUSE_10048 = 'Address already in use';
-  sSockErr_EADDRNOTAVAIL_10049 = 'Can''t assign requested address';
-  sSockErr_ENETDOWN_10050 = 'Network is down';
-  sSockErr_ENETUNREACH_10051 = 'Network is unreachable';
-  sSockErr_ENETRESET_10052 = 'Network dropped connection on reset';
-  sSockErr_ECONNABORTED_10053 = 'Software caused connection abort';
-  sSockErr_ECONNRESET_10054 = 'Connection reset by peer';
-  sSockErr_ENOBUFS_10055 = 'No Buffer space available';
-  sSockErr_EISCONN_10056 = 'Socket is already connected';
-  sSockErr_ENOTCONN_10057 = 'Socket is not connected';
-  sSockErr_ESHUTDOWN_10058 = 'Can''t send after Socket shutdown';
-  sSockErr_ETOOMANYREFS_10059 = 'Too many references:can''t splice';
-  sSockErr_ETIMEDOUT_10060 = 'Connection timed out';
-  sSockErr_ECONNREFUSED_10061 = 'Connection refused';
-  sSockErr_ELOOP_10062 = 'Too many levels of symbolic links';
-  sSockErr_ENAMETOOLONG_10063 = 'File name is too long';
-  sSockErr_EHOSTDOWN_10064 = 'Host is down';
-  sSockErr_EHOSTUNREACH_10065 = 'No route to host';
-  sSockErr_ENOTEMPTY_10066 = 'Directory is not empty';
-  sSockErr_EPROCLIM_10067 = 'Too many processes';
-  sSockErr_EUSERS_10068 = 'Too many users';
-  sSockErr_EDQUOT_10069 = 'Disk quota exceeded';
-  sSockErr_ESTALE_10070 = 'Stale NFS file handle';
-  sSockErr_EREMOTE_10071 = 'Too many levels of remote in path';
-  sSockErr_SYSNOTREADY_10091 = 'Network subsystem is unusable';
-  sSockErr_VERNOTSUPPORTED_10092 = 'Winsock DLL cannot support this application';
-  sSockErr_NOTINITIALISED_10093 = 'Winsock not initialized';
-  sSockErr_EDISCON_10101 = 'Disconnect';
-  sSockErr_HOST_NOT_FOUND_11001 = 'Host not found';
-  sSockErr_TRY_AGAIN_11002 = 'Non authoritative - host not found';
-  sSockErr_NO_RECOVERY_11003 = 'Non recoverable error';
-  sSockErr_NO_DATA_11004 = 'Valid name, no data record of requested type';
-
 const
 
   SynapseRelease = '38';
@@ -3130,116 +3076,116 @@ begin
   begin
     Result := WSAGetLastErrorDesc;
     if Result = '' then
-      Result := sSockErr_Other + ' (' + IntToStr(ErrorCode) + ')';
+      Result := 'Other Winsock error (' + IntToStr(ErrorCode) + ')';
   end;
 {$ELSE}
   case ErrorCode of
     0:
       Result := '';
     WSAEINTR: {10004}
-      Result := sSockErr_EINTR_10004;
+      Result := 'Interrupted system call';
     WSAEBADF: {10009}
-      Result := sSockErr_EBADF_10009;
+      Result := 'Bad file number';
     WSAEACCES: {10013}
-      Result := sSockErr_EACCES_10013;
+      Result := 'Permission denied';
     WSAEFAULT: {10014}
-      Result := sSockErr_EFAULT_10014;
+      Result := 'Bad address';
     WSAEINVAL: {10022}
-      Result := sSockErr_EINVAL_10022;
+      Result := 'Invalid argument';
     WSAEMFILE: {10024}
-      Result := sSockErr_EMFILE_10024;
+      Result := 'Too many open files';
     WSAEWOULDBLOCK: {10035}
-      Result := sSockErr_EWOULDBLOCK_10035;
+      Result := 'Operation would block';
     WSAEINPROGRESS: {10036}
-      Result := sSockErr_EINPROGRESS_10036;
+      Result := 'Operation now in progress';
     WSAEALREADY: {10037}
-      Result := sSockErr_EALREADY_10037;
+      Result := 'Operation already in progress';
     WSAENOTSOCK: {10038}
-      Result := sSockErr_ENOTSOCK_10038;
+      Result := 'Socket operation on nonsocket';
     WSAEDESTADDRREQ: {10039}
-      Result := sSockErr_EDESTADDRREQ_10039;
+      Result := 'Destination address required';
     WSAEMSGSIZE: {10040}
-      Result := sSockErr_EMSGSIZE_10040;
+      Result := 'Message too long';
     WSAEPROTOTYPE: {10041}
-      Result := sSockErr_EPROTOTYPE_10041;
+      Result := 'Protocol wrong type for Socket';
     WSAENOPROTOOPT: {10042}
-      Result := sSockErr_ENOPROTOOPT_10042;
+      Result := 'Protocol not available';
     WSAEPROTONOSUPPORT: {10043}
-      Result := sSockErr_EPROTONOSUPPORT_10043;
+      Result := 'Protocol not supported';
     WSAESOCKTNOSUPPORT: {10044}
-      Result := sSockErr_ESOCKTNOSUPPORT_10044;
+      Result := 'Socket not supported';
     WSAEOPNOTSUPP: {10045}
-      Result := sSockErr_EOPNOTSUPP_10045;
+      Result := 'Operation not supported on Socket';
     WSAEPFNOSUPPORT: {10046}
-      Result := sSockErr_EPFNOSUPPORT_10046;
+      Result := 'Protocol family not supported';
     WSAEAFNOSUPPORT: {10047}
-      Result := sSockErr_EAFNOSUPPORT_10047;
+      Result := 'Address family not supported';
     WSAEADDRINUSE: {10048}
-      Result := sSockErr_EADDRINUSE_10048;
+      Result := 'Address already in use';
     WSAEADDRNOTAVAIL: {10049}
-      Result := sSockErr_EADDRNOTAVAIL_10049;
+      Result := 'Can''t assign requested address';
     WSAENETDOWN: {10050}
-      Result := sSockErr_ENETDOWN_10050;
+      Result := 'Network is down';
     WSAENETUNREACH: {10051}
-      Result := sSockErr_ENETUNREACH_10051;
+      Result := 'Network is unreachable';
     WSAENETRESET: {10052}
-      Result := sSockErr_ENETRESET_10052;
+      Result := 'Network dropped connection on reset';
     WSAECONNABORTED: {10053}
-      Result := sSockErr_ECONNABORTED_10053;
+      Result := 'Software caused connection abort';
     WSAECONNRESET: {10054}
-      Result := sSockErr_ECONNRESET_10054;
+      Result := 'Connection reset by peer';
     WSAENOBUFS: {10055}
-      Result := sSockErr_ENOBUFS_10055;
+      Result := 'No Buffer space available';
     WSAEISCONN: {10056}
-      Result := sSockErr_EISCONN_10056;
+      Result := 'Socket is already connected';
     WSAENOTCONN: {10057}
-      Result := sSockErr_ENOTCONN_10057;
+      Result := 'Socket is not connected';
     WSAESHUTDOWN: {10058}
-      Result := sSockErr_ESHUTDOWN_10058;
+      Result := 'Can''t send after Socket shutdown';
     WSAETOOMANYREFS: {10059}
-      Result := sSockErr_ETOOMANYREFS_10059;
+      Result := 'Too many references:can''t splice';
     WSAETIMEDOUT: {10060}
-      Result := sSockErr_ETIMEDOUT_10060;
+      Result := 'Connection timed out';
     WSAECONNREFUSED: {10061}
-      Result := sSockErr_ECONNREFUSED_10061;
+      Result := 'Connection refused';
     WSAELOOP: {10062}
-      Result := sSockErr_ELOOP_10062;
+      Result := 'Too many levels of symbolic links';
     WSAENAMETOOLONG: {10063}
-      Result := sSockErr_ENAMETOOLONG_10063;
+      Result := 'File name is too long';
     WSAEHOSTDOWN: {10064}
-      Result := sSockErr_EHOSTDOWN_10064;
+      Result := 'Host is down';
     WSAEHOSTUNREACH: {10065}
-      Result := sSockErr_EHOSTUNREACH_10065;
+      Result := 'No route to host';
     WSAENOTEMPTY: {10066}
-      Result := sSockErr_ENOTEMPTY_10066;
+      Result := 'Directory is not empty';
     WSAEPROCLIM: {10067}
-      Result := sSockErr_EPROCLIM_10067;
+      Result := 'Too many processes';
     WSAEUSERS: {10068}
-      Result := sSockErr_EUSERS_10068;
+      Result := 'Too many users';
     WSAEDQUOT: {10069}
-      Result := sSockErr_EDQUOT_10069;
+      Result := 'Disk quota exceeded';
     WSAESTALE: {10070}
-      Result := sSockErr_ESTALE_10070;
+      Result := 'Stale NFS file handle';
     WSAEREMOTE: {10071}
-      Result := sSockErr_EREMOTE_10071;
+      Result := 'Too many levels of remote in path';
     WSASYSNOTREADY: {10091}
-      Result := sSockErr_SYSNOTREADY_10091;
+      Result := 'Network subsystem is unusable';
     WSAVERNOTSUPPORTED: {10092}
-      Result := sSockErr_VERNOTSUPPORTED_10092;
+      Result := 'Winsock DLL cannot support this application';
     WSANOTINITIALISED: {10093}
-      Result := sSockErr_NOTINITIALISED_10093;
+      Result := 'Winsock not initialized';
     WSAEDISCON: {10101}
-      Result := sSockErr_EDISCON_10101;
+      Result := 'Disconnect';
     WSAHOST_NOT_FOUND: {11001}
-      Result := sSockErr_HOST_NOT_FOUND_11001;
+      Result := 'Host not found';
     WSATRY_AGAIN: {11002}
-      Result := sSockErr_TRY_AGAIN_11002;
+      Result := 'Non authoritative - host not found';
     WSANO_RECOVERY: {11003}
-      Result := sSockErr_NO_RECOVERY_11003;
+      Result := 'Non recoverable error';
     WSANO_DATA: {11004}
-      Result := sSockErr_NO_DATA_11004
+      Result := 'Valid name, no data record of requested type'
   else
-    Result := sSockErr_Other + ' (' + IntToStr(ErrorCode) + ')';
+    Result := 'Other Winsock error (' + IntToStr(ErrorCode) + ')';
   end;
 {$ENDIF}
 end;

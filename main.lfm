@@ -2042,9 +2042,9 @@ inherited MainForm: TMainForm
         Caption = 'Visit home page'
         OnClick = miHomePageClick
       end
-      object miDonate: TMenuItem
-        Caption = 'Donate!'
-        OnClick = miDonateClick
+      object goDevelopmentSite: TMenuItem
+        Caption = 'Development site'
+        OnClick = goDevelopmentSiteClick
       end
       object MenuItem87: TMenuItem
         Caption = '-'

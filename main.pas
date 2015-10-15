@@ -250,7 +250,7 @@ type
     MenuItem91: TMenuItem;
     MenuItem92: TMenuItem;
     miView: TMenuItem;
-    miDonate: TMenuItem;
+    goDevelopmentSite: TMenuItem;
     miHomePage: TMenuItem;
     pmiQueue: TMenuItem;
     miQueue: TMenuItem;
@@ -535,7 +535,7 @@ type
     procedure lvTrackersDblClick(Sender: TObject);
     procedure lvTrackersKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
     procedure MainToolBarClick(Sender: TObject);
-    procedure miDonateClick(Sender: TObject);
+    procedure goDevelopmentSiteClick(Sender: TObject);
     procedure miHomePageClick(Sender: TObject);
     procedure PageInfoResize(Sender: TObject);
     procedure panReconnectResize(Sender: TObject);
@@ -684,6 +684,7 @@ var
   FAlterColor: TColor;
   IsUnity: boolean;
   Ini: TIniFileUtf8;
+  FHomeDir: string;
 
 const
   // Torrents list
@@ -926,7 +927,6 @@ begin
 end;
 
 var
-  FHomeDir: string;
   FIPCFileName: string;
   FRunFileName: string;
 
@@ -1929,7 +1929,7 @@ var
         s:=Format(': %s', [UTF8Encode(widestring(gTorrents.Items[idxName, i]))]);
     end;
     ForceAppNormal;
-    s:=SDuplicateTorrent + s + '.';
+    s:=TranslateString(SDuplicateTorrent + s + '.', True);
     if RpcObj.RPCVersion < 10 then begin
       MessageDlg(s, mtError, [mbOK], 0);
       exit;
@@ -2131,7 +2131,7 @@ var
         BorderStyle:=bsToolWindow;
         BorderIcons:=[];
         Position:=poScreenCenter;
-        Constraints.MinWidth:=300;
+        Constraints.MinWidth:=400;
         AutoSize:=True;
         BorderWidth:=ScaleInt(16);
         with TLabel.Create(WaitForm) do begin
@@ -3534,7 +3534,7 @@ begin
     ; // suppress exception
   end;
 {$endif CALLSTACK}
-  MessageDlg(msg, mtError, [mbOK], 0);
+  MessageDlg(TranslateString(msg, True), mtError, [mbOK], 0);
 end;
 
 procedure TMainForm.ApplicationPropertiesIdle(Sender: TObject; var Done: Boolean);
@@ -3948,9 +3948,9 @@ begin
 
 end;
 
-procedure TMainForm.miDonateClick(Sender: TObject);
+procedure TMainForm.goDevelopmentSiteClick(Sender: TObject);
 begin
-  GoDonate;
+  goGitHub;
 end;
 
 procedure TMainForm.miHomePageClick(Sender: TObject);
@@ -4049,7 +4049,10 @@ begin
         if Now - FReconnectWaitStart >= FReconnectTimeOut/SecsPerDay then
           DoConnect
         else
+          begin
           txReconnectSecs.Caption:=Format(sReconnect, [FReconnectTimeOut - Round(SecsPerDay*(Now - FReconnectWaitStart))]);
+          panReconnect.Constraints.MinWidth:=450;
+          end;
 
     if FSlowResponse.Visible then begin
       if RpcObj.RequestStartTime = 0 then
@@ -4241,6 +4244,8 @@ begin
       RpcObj.Http.ProxyPass:=DecodeBase64(Ini.ReadString(Sec, 'ProxyPass', ''));
     end;
   end;
+  if (FReconnectTimeOut = -1) and Ini.ReadBool(Sec, 'Autoreconnect', False) then
+        FReconnectTimeOut:=0;
   RpcObj.RpcPath:=Ini.ReadString(Sec, 'RpcPath', '');
   RpcObj.Url:=Format('%s://%s:%d', [RpcObj.Url, Ini.ReadString(Sec, 'Host', ''), Ini.ReadInteger(Sec, 'Port', 9091)]);
   SetRefreshInterval;
@@ -4452,11 +4457,17 @@ begin
 end;
 
 procedure TMainForm.ConnectionSettingsChanged(const ActiveConnection: string; ForceReconnect: boolean);
+var
+  Sec: string;
 begin
   UpdateConnections;
   if (FCurConn <> ActiveConnection) or ForceReconnect then begin
     DoDisconnect;
-    FReconnectTimeOut:=-1;
+    Sec:='Connection.' + ActiveConnection;
+    if Ini.ReadBool(Sec, 'Autoreconnect', False) then
+       FReconnectTimeOut:=0
+    else
+       FReconnectTimeOut:=-1;
     FCurConn:=ActiveConnection;
     if FCurConn <> '' then
       DoConnect;
@@ -5409,6 +5420,7 @@ begin
       s:=Format(Msg, [UTF8Encode(widestring(gTorrents.Items[idxName, gTorrents.Items.IndexOf(idxTorrentId, ids[0])]))])
     else
       s:=Format(MsgMulti, [gTorrents.SelCount]);
+    s:=TranslateString(s, True);
     if MessageDlg('', s, mtConfirmation, mbYesNo, 0, mbNo) <> mrYes then exit;
   finally
     gTorrents.Tag:=0;
@@ -5503,6 +5515,7 @@ begin
   panTransfer.ChildSizing.Layout:=cclNone;
   txStatus.Caption:=GetTorrentStatus(idx);
   tr:=GetTorrentError(t, gTorrents.Items[idxStatus, idx]);
+  txError.Constraints.MinWidth:=400;
   if Ini.ReadBool('Translation', 'TranslateMsg', True) then
      txError.Caption:=TranslateString(tr, True)
   else
@@ -5899,7 +5912,7 @@ var
   i: integer;
 begin
   with MainForm do begin
-    s:=RpcObj.Status;
+    s:=TranslateString(RpcObj.Status, True);
     if s <> '' then begin
       RpcObj.Status:='';
       if Fatal then
@@ -6389,12 +6402,15 @@ end;
 procedure TMainForm.DoConnectToHost(Sender: TObject);
 var
   mi: TMenuItem;
+  Sec: string;
 begin
   mi:=TMenuItem(Sender);
   if RpcObj.Connected and (FCurConn = mi.Caption) then
     exit;
   DoDisconnect;
-  FReconnectTimeOut:=-1;
+  Sec:='Connection.' + FCurConn;
+  if (FReconnectTimeOut = -1) and Ini.ReadBool(Sec, 'Autoreconnect', False) then
+        FReconnectTimeOut:=0;
   FCurConn:=mi.Caption;
   DoConnect;
 end;

@@ -58,6 +58,7 @@ type
     edUpSpeeds: TEdit;
     edHost: TEdit;
     cbSSL: TCheckBox;
+    cbAutoReconnect: TCheckBox;
     cbConnection: TComboBox;
     edDownSpeeds: TEdit;
     edProxy: TEdit;
@@ -283,7 +284,7 @@ procedure TConnOptionsForm.edIniFileOpen(Sender: TObject);
   begin
     if edIniFileName.Text <> '' then begin
       AppBusy;
-      OpenURL(edIniFileName.Text);
+      OpenURL(Main.FHomeDir+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini'));
       AppNormal;
       exit;
     end;
@@ -357,7 +358,8 @@ begin
     edTranslateMsg.Enabled:=False;
   Main.LoadTranslation;
   edLanguage.Text:=Main.FTranslationLanguage;
-  edIniFileName.Text:=GetAppConfigDir(False)+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
+  //edIniFileName.Text:=Main.FHomeDir+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini') + ' - ' + GetAppConfigDir(False)+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
+  edIniFileName.Text:=Main.FHomeDir+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
 end;
 
 procedure TConnOptionsForm.FormShow(Sender: TObject);
@@ -503,6 +505,7 @@ begin
     FCurHost:=edHost.Text;
     edPort.Value:=ReadInteger(Sec, 'Port', 9091);
     cbSSL.Checked:=ReadBool(Sec, 'UseSSL', False);
+    cbAutoReconnect.Checked:=ReadBool(Sec, 'Autoreconnect', False);
     edUserName.Text:=ReadString(Sec, 'UserName', '');
     cbAuth.Checked:=edUserName.Text <> '';
     if cbAuth.Checked then begin
@@ -554,6 +557,7 @@ begin
     Sec:='Connection.' + ConnName;
     WriteString(Sec, 'Host', Trim(edHost.Text));
     WriteBool(Sec, 'UseSSL', cbSSL.Checked);
+    WriteBool(Sec, 'Autoreconnect', cbAutoReconnect.Checked);
     WriteInteger(Sec, 'Port', edPort.Value);
     if not cbAuth.Checked then begin
       edUserName.Text:='';
@@ -617,6 +621,7 @@ begin
     Result:=(edPort.Value <> ReadInteger(Sec, 'Port', 9091)) or
             (edHost.Text <> ReadString(Sec, 'Host', '')) or
             (cbSSL.Checked <> ReadBool(Sec, 'UseSSL', False)) or
+            (cbAutoReconnect.Checked <> ReadBool(Sec, 'Autoreconnect', False)) or
             (edUserName.Text <> ReadString(Sec, 'UserName', '')) or
             ((ReadString(Sec, 'Password', '') = '') and (edPassword.Text <> '')) or
             ((ReadString(Sec, 'Password', '') <> '') and (edPassword.Text <> '******')) or
