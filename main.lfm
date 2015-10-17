@@ -1111,6 +1111,7 @@ inherited MainForm: TMainForm
     end
     object ToolButton2: TToolButton
       Left = 95
+      Height = 22
       Top = 2
       Width = 10
       Caption = 'ToolButton2'
@@ -1133,6 +1134,7 @@ inherited MainForm: TMainForm
     end
     object ToolButton6: TToolButton
       Left = 39
+      Height = 22
       Top = 2
       Width = 10
       Caption = 'ToolButton6'
@@ -1140,6 +1142,7 @@ inherited MainForm: TMainForm
     end
     object ToolButton7: TToolButton
       Left = 263
+      Height = 22
       Top = 2
       Width = 10
       Caption = 'ToolButton7'
@@ -1169,6 +1172,7 @@ inherited MainForm: TMainForm
     end
     object sepAltSpeed: TToolButton
       Left = 230
+      Height = 22
       Top = 2
       Width = 10
       Caption = 'sepAltSpeed'
@@ -1176,6 +1180,7 @@ inherited MainForm: TMainForm
     end
     object sepQueue: TToolButton
       Left = 174
+      Height = 22
       Top = 2
       Width = 10
       Caption = 'sepQueue'

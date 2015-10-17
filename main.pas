@@ -25,12 +25,12 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, zstream, LResources, Forms, Controls, Graphics, Dialogs, ComCtrls, Menus, ActnList,
-  httpsend, StdCtrls, fpjson, jsonparser, ExtCtrls, rpc, syncobjs, variants, varlist, IpResolver,
+  httpsend, StdCtrls, xfpjson, xjsonparser, ExtCtrls, rpc, syncobjs, variants, varlist, IpResolver,
   zipper, ResTranslator, VarGrid, StrUtils, LCLProc, Grids, BaseForm, utils, AddTorrent;
 
 const
   AppName = 'Transmission Remote GUI';
-  AppVersion = '5.0.1';
+  AppVersion = '5.0.2';
 
 resourcestring
   sAll = 'All torrents';
@@ -903,7 +903,7 @@ end;
 procedure OnTranslate(Sender: TResTranslator; const ResourceName: AnsiString; var Accept: boolean);
 const
   IgnoreUnits: array[0..12] of string =
-      ('fpjson','jsonparser','jsonscanner','lclstrconsts','math',
+      ('xfpjson','xjsonparser','xjsonscanner','lclstrconsts','math',
        'rtlconsts','sysconst','variants','zbase','zipper','zstream',
        'xmlcfg', 'registry');
 
@@ -3945,7 +3945,6 @@ end;
 
 procedure TMainForm.MainToolBarClick(Sender: TObject);
 begin
-
 end;
 
 procedure TMainForm.goDevelopmentSiteClick(Sender: TObject);

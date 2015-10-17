@@ -308,7 +308,7 @@ inherited ConnOptionsForm: TConnOptionsForm
         Width = 488
         Anchors = [akTop, akLeft, akRight]
         Caption = 'Speed limit menu items'
-        ClientHeight = 107
+        ClientHeight = 105
         ClientWidth = 484
         TabOrder = 0
         object txDownSpeeds: TLabel

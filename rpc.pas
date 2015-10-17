@@ -24,7 +24,7 @@ unit rpc;
 interface
 
 uses
-  Classes, SysUtils, Forms, httpsend, syncobjs, fpjson, jsonparser, ssl_openssl;
+  Classes, SysUtils, Forms, httpsend, syncobjs, xfpjson, xjsonparser, ssl_openssl;
 
 resourcestring
   sTransmissionAt = 'Transmission%s at %s:%s';
@@ -623,7 +623,7 @@ function TRpc.SendRequest(req: TJSONObject; ReturnArguments: boolean; ATimeOut: 
 var
   obj: TJSONData;
   res: TJSONObject;
-  jp: TJSONParser;
+  jp: XTJSONParser;
   s: string;
   i, j, OldTimeOut, RetryCnt: integer;
   locked, r: boolean;
@@ -739,7 +739,7 @@ begin
           break;
         end;
         Http.Document.Position:=0;
-        jp:=TJSONParser.Create(Http.Document);
+        jp:=XTJSONParser.Create(Http.Document);
         HttpLock.Leave;
         locked:=False;
         RequestStartTime:=0;
