@@ -24,7 +24,7 @@ unit ConnOptions;
 interface
 
 uses
-  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin, ComCtrls, Buttons, ButtonPanel, ExtCtrls, BaseForm;
+  Classes, SysUtils, FileUtil, LResources, Forms, Controls, Graphics, Dialogs, StdCtrls, Spin, ComCtrls, Buttons, ButtonPanel, ExtCtrls, BaseForm, ResTranslator;
 
 const
   DefSpeeds = '0,10,25,50,100,250,500,750,1000,2500,5000,7000';
@@ -50,10 +50,15 @@ type
     cbAuth: TCheckBox;
     cbShowAdvanced: TCheckBox;
     cbAskPassword: TCheckBox;
+    edIniFileName: TEdit;
+    edLanguage: TEdit;
+    edTranslateForm: TCheckBox;
+    edTranslateMsg: TCheckBox;
     edRpcPath: TEdit;
     edUpSpeeds: TEdit;
     edHost: TEdit;
     cbSSL: TCheckBox;
+    cbAutoReconnect: TCheckBox;
     cbConnection: TComboBox;
     edDownSpeeds: TEdit;
     edProxy: TEdit;
@@ -64,6 +69,8 @@ type
     edPassword: TEdit;
     edPaths: TMemo;
     gbSpeed: TGroupBox;
+    Label1: TLabel;
+    Label2: TLabel;
     txRpcPath: TLabel;
     txConName: TLabel;
     txConnHelp: TLabel;
@@ -96,6 +103,9 @@ type
     procedure cbShowAdvancedClick(Sender: TObject);
     procedure cbUseProxyClick(Sender: TObject);
     procedure edHostChange(Sender: TObject);
+    procedure edIniFileOpen(Sender: TObject);
+    procedure edLanguageDoubleClick(Sender: TObject);
+    procedure edTranslateFormChange(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormShow(Sender: TObject);
     procedure tabPathsShow(Sender: TObject);
@@ -119,7 +129,7 @@ type
 
 implementation
 
-uses Main, synacode, utils, rpc;
+uses Main, synacode, utils, rpc, LCLIntf;
 
 { TConnOptionsForm }
 
@@ -270,6 +280,53 @@ begin
   FCurHost:=edHost.Text;
 end;
 
+procedure TConnOptionsForm.edIniFileOpen(Sender: TObject);
+  begin
+    if edIniFileName.Text <> '' then begin
+      AppBusy;
+      OpenURL(Main.FHomeDir+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini'));
+      AppNormal;
+      exit;
+    end;
+
+    ForceAppNormal;
+    MessageDlg(sNoPathMapping, mtInformation, [mbOK], 0);
+end;
+
+procedure TConnOptionsForm.edLanguageDoubleClick(Sender: TObject);
+var
+Sl: TStringList;
+begin
+Sl:= GetAvailableTranslations(DefaultLangDir);
+GetTranslationFileName(Main.FTranslationLanguage, Sl);
+ShowMessage(
+            sLanguagePathFile + ': ' + IniFileName + sLineBreak + sLineBreak +
+            sLanguagePath + ': ' + DefaultLangDir + sLineBreak + sLineBreak +
+            sLanguageList + ':' + sLineBreak + Sl.Text
+            );
+edLanguage.Text:=IniFileName;
+  if IniFileName <> '' then begin
+      AppBusy;
+      OpenURL(DefaultLangDir);
+      AppNormal;
+      exit;
+  end;
+  ForceAppNormal;
+  MessageDlg(sNoPathMapping, mtInformation, [mbOK], 0);
+end;
+
+procedure TConnOptionsForm.edTranslateFormChange(Sender: TObject);
+begin
+  if edTranslateForm.Checked then
+    edTranslateMsg.Enabled:=True
+  else
+    begin
+    edTranslateMsg.Enabled:=False;
+    edLanguage.Text:='';
+    end;
+
+end;
+
 procedure TConnOptionsForm.FormCreate(Sender: TObject);
 var
   i, cnt: integer;
@@ -294,6 +351,15 @@ begin
   end;
 
   cbShowAdvanced.Top:=edRpcPath.Top;
+
+  if edTranslateForm.Checked then
+    edTranslateMsg.Enabled:=True
+  else
+    edTranslateMsg.Enabled:=False;
+  Main.LoadTranslation;
+  edLanguage.Text:=Main.FTranslationLanguage;
+  //edIniFileName.Text:=Main.FHomeDir+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini') + ' - ' + GetAppConfigDir(False)+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
+  edIniFileName.Text:=Main.FHomeDir+ChangeFileExt(ExtractFileName(ParamStrUTF8(0)), '.ini');
 end;
 
 procedure TConnOptionsForm.FormShow(Sender: TObject);
@@ -439,6 +505,7 @@ begin
     FCurHost:=edHost.Text;
     edPort.Value:=ReadInteger(Sec, 'Port', 9091);
     cbSSL.Checked:=ReadBool(Sec, 'UseSSL', False);
+    cbAutoReconnect.Checked:=ReadBool(Sec, 'Autoreconnect', False);
     edUserName.Text:=ReadString(Sec, 'UserName', '');
     cbAuth.Checked:=edUserName.Text <> '';
     if cbAuth.Checked then begin
@@ -466,6 +533,8 @@ begin
     edPaths.Text:=StringReplace(ReadString(Sec, 'PathMap', ''), '|', LineEnding, [rfReplaceAll]);
     edDownSpeeds.Text:=ReadString(Sec, 'DownSpeeds', DefSpeeds);
     edUpSpeeds.Text:=ReadString(Sec, 'UpSpeeds', DefSpeeds);
+    edTranslateMsg.Checked:=ReadBool('Translation', 'TranslateMsg', True);
+    edTranslateForm.Checked:=ReadBool('Translation', 'TranslateForm', True);
     cbUseProxyClick(nil);
   end;
   FCurConn:=ConnName;
@@ -488,6 +557,7 @@ begin
     Sec:='Connection.' + ConnName;
     WriteString(Sec, 'Host', Trim(edHost.Text));
     WriteBool(Sec, 'UseSSL', cbSSL.Checked);
+    WriteBool(Sec, 'Autoreconnect', cbAutoReconnect.Checked);
     WriteInteger(Sec, 'Port', edPort.Value);
     if not cbAuth.Checked then begin
       edUserName.Text:='';
@@ -511,6 +581,8 @@ begin
     else
       WriteString(Sec, 'RpcPath', edRpcPath.Text);
 
+    WriteBool('Translation', 'TranslateMsg', edTranslateMsg.Checked);
+    WriteBool('Translation', 'TranslateForm', edTranslateForm.Checked);
     WriteBool(Sec, 'UseProxy', cbUseProxy.Checked);
     WriteBool(Sec, 'UseSockProxy', cbUseSocks5.Checked);
     WriteString(Sec, 'ProxyHost', Trim(edProxy.Text));
@@ -549,11 +621,14 @@ begin
     Result:=(edPort.Value <> ReadInteger(Sec, 'Port', 9091)) or
             (edHost.Text <> ReadString(Sec, 'Host', '')) or
             (cbSSL.Checked <> ReadBool(Sec, 'UseSSL', False)) or
+            (cbAutoReconnect.Checked <> ReadBool(Sec, 'Autoreconnect', False)) or
             (edUserName.Text <> ReadString(Sec, 'UserName', '')) or
             ((ReadString(Sec, 'Password', '') = '') and (edPassword.Text <> '')) or
             ((ReadString(Sec, 'Password', '') <> '') and (edPassword.Text <> '******')) or
             (edRpcPath.Text <> ReadString(Sec, 'RpcPath', DefaultRpcPath)) or
             (cbUseProxy.Checked <> ReadBool(Sec, 'UseProxy', False)) or
+            (edTranslateMsg.Checked <> ReadBool('Translation', 'TranslateMsg', True)) or
+            (edTranslateForm.Checked <> ReadBool('Translation', 'TranslateForm', True)) or
             (edProxy.Text <> ReadString(Sec, 'ProxyHost', '')) or
             (edProxyPort.Value <> ReadInteger(Sec, 'ProxyPort', 8080)) or
             (edProxyUserName.Text <> ReadString(Sec, 'ProxyUser', '')) or

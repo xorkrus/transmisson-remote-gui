@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -19,8 +19,8 @@
     <VersionInfo>
       <UseVersionInfo Value="True"/>
       <MajorVersionNr Value="5"/>
-      <RevisionNr Value="1"/>
-      <StringTable CompanyName="Yury Sidorov" FileDescription="Transmission Remote GUI" InternalName="transgui" LegalCopyright="Copyright (c) 2008-2014 by Yury Sidorov" OriginalFilename="transgui.exe" ProductName="Transmission Remote GUI" ProductVersion="5.0.1"/>
+      <RevisionNr Value="2"/>
+      <StringTable CompanyName="Yury Sidorov" FileDescription="Transmission Remote GUI" InternalName="transgui" LegalCopyright="Copyright (c) 2008-2015 by Yury Sidorov" LegalTrademarks="GNU GENERAL PUBLIC LICENSE" OriginalFilename="transgui.exe" ProductName="Transmission Remote GUI" ProductVersion="5.0.2"/>
     </VersionInfo>
     <BuildModes Count="1">
       <Item1 Name="default" Default="True"/>
@@ -51,7 +51,6 @@
       <Unit0>
         <Filename Value="transgui.lpr"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="transgui"/>
       </Unit0>
       <Unit1>
         <Filename Value="main.pas"/>
@@ -64,7 +63,6 @@
       <Unit2>
         <Filename Value="rpc.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="rpc"/>
       </Unit2>
       <Unit3>
         <Filename Value="addtorrent.pas"/>
@@ -85,7 +83,6 @@
       <Unit5>
         <Filename Value="varlist.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="varlist"/>
       </Unit5>
       <Unit6>
         <Filename Value="torrprops.pas"/>
@@ -122,7 +119,6 @@
         <ComponentName Value="DownloadForm"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
-        <UnitName Value="download"/>
       </Unit10>
       <Unit11>
         <Filename Value="colsetup.pas"/>
@@ -135,7 +131,6 @@
       <Unit12>
         <Filename Value="utils.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="utils"/>
       </Unit12>
       <Unit13>
         <Filename Value="restranslator.pas"/>
@@ -205,7 +200,7 @@
         <StackChecks Value="True"/>
       </Checks>
       <Optimizations>
-        <OptimizationLevel Value="0"/>
+        <OptimizationLevel Value="3"/>
       </Optimizations>
     </CodeGeneration>
     <Linking>
@@ -217,11 +212,7 @@
       <Verbosity>
         <ShowHints Value="False"/>
       </Verbosity>
-      <CompilerMessages>
-        <UseMsgFile Value="True"/>
-      </CompilerMessages>
       <CustomOptions Value="-Sa"/>
-      <CompilerPath Value="$(CompPath)"/>
     </Other>
   </CompilerOptions>
 </CONFIG>
